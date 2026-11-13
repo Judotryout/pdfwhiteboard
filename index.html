@@ -189,9 +189,20 @@
   <div class="modal" id="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 id="modal-title">Dokument</h2>
-        <button class="close-btn" id="close-btn">&times;</button>
-      </div>
+  <h2 id="modal-title">Dokument</h2>
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <a id="download-btn" href="#" download style="
+      background: #2563eb;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    ">Download</a>
+    <button class="close-btn" id="close-btn">&times;</button>
+  </div>
+</div>
       <div class="modal-body" id="modal-body">
         <!-- PDF wird hier eingefügt -->
       </div>
@@ -285,11 +296,17 @@
     }
 
     function openModal(pdf) {
-      modalTitle.textContent = pdf.title;
-      modalBody.innerHTML = `<embed src="${pdf.url}" type="application/pdf" width="100%" height="100%">`;
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+  modalTitle.textContent = pdf.title;
+  modalBody.innerHTML = `<embed src="${pdf.url}" type="application/pdf" width="100%" height="100%">`;
+  
+  // Download-Button setzen
+  const downloadBtn = document.getElementById('download-btn');
+  downloadBtn.href = pdf.url;
+  downloadBtn.download = pdf.title + '.pdf';   // Dateiname beim Download
+  
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
 
     function closeModal() {
       modal.classList.remove('active');
